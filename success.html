@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kolay Giriş - Başarılı</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="page-wrapper">
+        <!-- Top blue gradient area -->
+        <div class="top-section"></div>
+
+        <!-- Success card -->
+        <div class="login-card">
+            <div class="card-header">
+                <h1 class="title">
+                    <span class="arrow">»</span>Kolay Giriş
+                </h1>
+                <div class="divider"></div>
+            </div>
+
+            <div class="card-body">
+                <div class="success-content">
+                    <div class="success-icon" id="successIcon">
+                        <svg width="72" height="72" viewBox="0 0 72 72" fill="none">
+                            <circle cx="36" cy="36" r="34" stroke="#0066b3" stroke-width="3" fill="none"
+                                class="circle-anim" />
+                            <path d="M22 36L32 46L50 26" stroke="#0066b3" stroke-width="3.5" stroke-linecap="round"
+                                stroke-linejoin="round" fill="none" class="check-anim" />
+                        </svg>
+                    </div>
+                    <h2 class="success-title">Talebiniz Alınmıştır</h2>
+                    <p class="success-description">
+                        Giriş talebiniz başarıyla alınmıştır.
+                        Kısa süre içinde işleminiz tamamlanacaktır.
+                    </p>
+                    <div class="success-ref">
+                        <span class="ref-label">İşlem Numarası</span>
+                        <span class="ref-value" id="txnId"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer links -->
+        <div class="footer-links">
+            <a href="#" class="footer-link">Aydınlatma Metni</a>
+            <a href="#" class="footer-link">Çerez Politikası</a>
+        </div>
+    </div>
+
+    <script>
+        // Generate random transaction ID
+        function generateTxnId() {
+            const chars = '0123456789';
+            let id = '';
+            for (let i = 0; i < 8; i++) {
+                id += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            return 'TK-' + id;
+        }
+        document.getElementById('txnId').textContent = generateTxnId();
+    </script>
+</body>
+
+</html>
