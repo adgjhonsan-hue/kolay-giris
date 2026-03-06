@@ -5,6 +5,8 @@ const loginBtn = document.getElementById('loginBtn');
 // Only allow digits in phone input
 phoneInput.addEventListener('input', function (e) {
     let value = this.value.replace(/\D/g, '');
+    // Başındaki sıfırları otomatik kaldır (0538... → 538...)
+    value = value.replace(/^0+/, '');
     if (value.length > 10) {
         value = value.slice(0, 10);
     }
